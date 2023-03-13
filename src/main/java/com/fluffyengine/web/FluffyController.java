@@ -1,12 +1,10 @@
 package com.fluffyengine.web;
 
 import com.fluffyengine.data.FluffyData;
+import com.fluffyengine.dto.FluffyDataDTO;
 import com.fluffyengine.repository.FluffyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("fluffy/")
@@ -16,10 +14,15 @@ public class FluffyController {
 
     @GetMapping("/{id}")
     public FluffyData getFluffyData(@PathVariable String id) {
-        FluffyData data = fluffyRepository.findById(id).orElse(new FluffyData(id));
-        data.increment();
+        return fluffyRepository.findById(id).orElse(null);
+    }
+
+    @PostMapping
+    public void save(@RequestBody FluffyDataDTO dto) {
+        FluffyData data = new FluffyData();
+        data.setData(dto.getData());
+        data.setLevel(dto.getLevel());
         fluffyRepository.save(data);
-        return data;
     }
 
 

@@ -1,0 +1,8 @@
+auth0:
+  audience: fluffy-api
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://dev-pll2veud4odkmoa8.us.auth0.com/
