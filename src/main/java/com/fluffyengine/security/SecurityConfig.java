@@ -32,6 +32,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests()
                 .requestMatchers("/").permitAll()
                 .requestMatchers("/result").permitAll()
+                .requestMatchers("/fluffy/**").permitAll()
                 .requestMatchers("/customer/**").authenticated()
                 .and().cors()
                 .and().oauth2ResourceServer().jwt();

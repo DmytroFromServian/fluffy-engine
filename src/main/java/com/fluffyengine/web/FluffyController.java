@@ -4,6 +4,7 @@ import com.fluffyengine.data.FluffyData;
 import com.fluffyengine.dto.FluffyDataDTO;
 import com.fluffyengine.repository.FluffyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -13,6 +14,7 @@ public class FluffyController {
     private FluffyRepository fluffyRepository;
 
     @GetMapping("/{id}")
+    @Cacheable(value = "getFluffyData", key="{#id}")
     public FluffyData getFluffyData(@PathVariable String id) {
         return fluffyRepository.findById(id).orElse(null);
     }
